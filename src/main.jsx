@@ -2,9 +2,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/homepage'
-import Admin from './pages/admin'
 import Formpage from './pages/formpage'
-import Login from './pages/login'
+import './index.css'
+import Author from './pages/author/components/Author'
+import Authorlogin from './pages/author/Authorlogin'
+import Authorform from './pages/author/Authorform'
+import Imageup from './pages/author/components/Imageup'
+import Adminlogin from './pages/admin/Adminlogin'
+import Admin from './pages/admin/components/Admin'
+import QRCode from './pages/author/components/QRCode'
+
 
 
 
@@ -15,16 +22,37 @@ const router = createBrowserRouter([
   },
   {
     path:"admin",
-    element:<Admin/>,
+    element:<Admin/>
   },
   {
     path:"formpage",
     element:<Formpage/>,
   },
   {
-    path:"login",
-    element:<Login/>,
+    path:"adminlogin",
+    element:<Adminlogin/>,
   },
+  {
+    path:"author",
+    element:<Author/>
+  },
+  {
+    path:"authorlogin",
+    element:<Authorlogin/>
+  },
+  {
+    path:"authorform",
+    element:<Authorform/>
+  },
+  {
+    path:"imageup",
+    element:<Imageup/>
+  },
+  {
+    path:"QR",
+    element:<QRCode/>
+  }
+
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
