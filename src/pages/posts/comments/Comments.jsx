@@ -23,16 +23,16 @@ function Comments() {
   },[])
   
   const commentdelete = async (id) =>{
-  const response =   await axios.get(`http://localhost:3000/comment`);
-    setComment(prev=>prev.filter(item=>item.id !==id));
-    console.log(response)
+    await axios.get(`http://localhost:3000/comment/${id}`);
+    setComment(prev=>prev.filter(item=>item._id !==id));
+
   }
 
     
   return (
     <>
 {Array.isArray(comment) && comment.map((comments)=>(
-   <div key={comments.id}>
+   <div key={comments._id}>
    <div className="flex mt-4  p-4 rounded-lg shadow-sm">
 
       <div className="flex flex-col items-center px-2 py-1 bg-gray-100 rounded-lg text-purple-600 font-bold text-sm">
@@ -53,7 +53,7 @@ function Comments() {
               <button onClick={()=>setReply(comments.id)} className="text-blue-500 flex items-center gap-1 text-sm font-semibold">
               <Reply /> Reply
               </button>
-              <button onClick={()=>commentdelete(comments.id)} className='mt-5 text-red-600'>
+              <button onClick={()=>commentdelete(comments._id)} className='mt-5 text-red-600'>
               <Trash2/>
               </button>
             </div>
