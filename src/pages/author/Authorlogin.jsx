@@ -2,9 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { loginSchema } from '../../schema/loginSchema'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
+import axios from 'axios'
 
 function Authorlogin() {
+
+  const navigate = useNavigate ();
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -13,10 +16,34 @@ function Authorlogin() {
       password:"",
     }
   })
+
+
+  const handlelogin = async (value) =>{
+    let {data} = await axios.get("http://localhost:3000/author");
+  
+    let userExist = data.data.some((user)=>{
+      if(user.email == value.email && user.password == value.password){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+
+    if(userExist){
+      localStorage.setItem("authenticated", userExist);
+      navigate ("/author")
+    }
+    else{
+      alert("invalid information")
+    }
+  }
+
+  
   
   return (
     
-    <form onSubmit={form.handleSubmit()}>
+    <form onSubmit={form.handleSubmit(handlelogin)}>
       <div className='flex justify-center bg-cover bg-center min-h-screen' style={{backgroundImage:"url('/image2.png')"}}>
         <div className='bg-transparent border-2 border-black backdrop-blur-md w-[400px] h-[500px] rounded mt-20 '>
 

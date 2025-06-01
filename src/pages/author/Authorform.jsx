@@ -2,8 +2,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import {  formSchema } from '../../schema/formSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-
 import Layout from '../../layout'
+import axios from 'axios'
 
 function Authorform() {
 
@@ -18,10 +18,22 @@ function Authorform() {
     }
   })
 
+  const onsubmit = async (value)=>{
+    try{
+    await axios.post("http://localhost:3000/author",value)
+
+    alert("form submitted")
+  } catch {
+    alert("submission fail")
+  }
+
+}
+
+
   return (
 
     <Layout>
-    <form onSubmit={form.handleSubmit()}>
+    <form onSubmit={form.handleSubmit(onsubmit)}>
       <div className=' flex justify-center bg-cover bg-center min-h-screen bg-gray-200' >
         <div className='text-black font-bold space-y-5 mt-10 ml-20 space-x-5 '>
           <h1 className='text-2xl' > Name </h1>
